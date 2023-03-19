@@ -13,11 +13,27 @@
         <h1>게시판</h1>
       </div>
       <div class="board_write">
-        <span>현재 등록 글:</span>
+        <span>현재 등록 글: <%= articleCnts %></span>
         <a href="">글쓰기</a>
       </div>
       <div class="board_body">
         <ul class="board">
+          <% if (articleCnts > 0) { %>
+            <% for (let i = 0; i < articleCnts; i++) { %>
+              <li>
+                <div class="title"><%= ARTICLE[i].title %></div>
+                <div class="content"><%= ARTICLE[i].content %></div>
+                <div class="foot">
+                  <a href="">수정</a>
+                  <a href="">삭제</a>
+                </div>
+              </li>
+            <% }%>
+          <% } else { %>
+            <li>
+              <title>글이 없습니다</title>
+            </li>
+          <% }%>
         </ul>
       </div>
     </div>

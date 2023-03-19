@@ -15,7 +15,8 @@ const ARTICLE = [
 
 // 글 전체 목록 보여주기
 router.get('/', (req, res) => {
-  res.render('board');
+  const articleCnts = ARTICLE.length;
+  res.render('board', {ARTICLE, articleCnts});
 });
 
 // 글쓰기
