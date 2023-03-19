@@ -44,7 +44,11 @@ router.post('/write', (req, res) => {
 
 // 글 수정
 // 글 수정 모드로 이동
-router.get('/modify/:title', (req, res) => {});
+router.get('/modify/:title', (req, res) => {
+  const postIndex = POST.findIndex((post)=>post.title === req.params.title);
+  const selectedPost = POST[postIndex];
+  res.render('board_modify', {selectedPost});
+});
 // 게시물 수정
 router.post('/modify/:title', (req, res)=>{});
 
