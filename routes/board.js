@@ -25,7 +25,22 @@ router.get('/write', (req, res) => {
   res.render('board_write')
 });
 // 게시물 추가
-router.post('/write', (req, res) => {});
+router.post('/write', (req, res) => {
+  console.log(req.body);
+  if (req.body.title && req.body.content) {
+    const newArticle = {
+      title: req.body.title,
+      content: req.body.content
+    };
+    ARTICLE.push(newArticle);
+
+    res.redirect('/board');
+  } else {
+    const err = new Error('데이터 값이 들어오지 않았습니다.');
+    err.statusCode = 400;
+    throw err;
+  }
+});
 
 // 글 수정
 // 글 수정 모드로 이동
