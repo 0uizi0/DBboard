@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #eee;
+}
+
+ul,ol {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn {
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin: 0 5px;
+  font-weight: bold;
+  background-color: grey;
+  color: white;
+}
+
+.inner {
+  position: absolute;
+  height: 100vh;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 50px;
+}
+
+.inner .board_container .board_header {
+  text-align: center;
+}

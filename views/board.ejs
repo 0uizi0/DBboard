@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BOARD</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <div class="inner">
@@ -14,7 +15,7 @@
       </div>
       <div class="board_write">
         <span>현재 등록 글: <%= postCnts %></span>
-        <a href="/board/write">글쓰기</a>
+        <a href="/board/write" class="btn">글쓰기</a>
       </div>
       <div class="board_body">
         <ul class="board">
@@ -24,8 +25,8 @@
                 <div class="title"><%= POST[i].title %></div>
                 <div class="content"><%= POST[i].content %></div>
                 <div class="foot">
-                  <a href="board/modify/<%= POST[i].title %>">수정</a>
-                  <a href="#" onclick="deletePost('<%= POST[i].title %>')">삭제</a>
+                  <a href="board/modify/<%= POST[i].title %>" class="btn">수정</a>
+                  <a href="#" onclick="deletePost('<%= POST[i].title %>')" class="btn">삭제</a>
                 </div>
               </li>
             <% }%>
