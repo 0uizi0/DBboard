@@ -26,7 +26,6 @@ router.get('/write', (req, res) => {
 });
 // 게시물 추가
 router.post('/write', (req, res) => {
-  console.log(req.body);
   if (req.body.title && req.body.content) {
     const newPost = {
       title: req.body.title,
