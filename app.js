@@ -14,10 +14,12 @@ app.use(express.urlencoded({extended: false}));
 const mainRouter = require('./routes');
 const userRouter = require('./routes/users');
 const boardRouter = require('./routes/board');
+const dbUserRouter = require('./routes/dbUser');
 
 app.use('/', mainRouter);
 app.use('/users', userRouter);
 app.use('/board', boardRouter);
+app.use('/dbUser', dbUserRouter);
 
 app.listen(PORT, () => {
   console.log(`${PORT}번 포트에서 서버 실행 중`);
