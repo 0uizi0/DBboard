@@ -50,7 +50,26 @@ router.get('/modify/:title', (req, res) => {
   res.render('board_modify', {selectedPost});
 });
 // 게시물 수정
-router.post('/modify/:title', (req, res)=>{});
+router.post('/modify/:title', (req, res)=>{
+  if (req.body.title && req.body.content) {
+    const postIndex = POST.findIndex((post)=>post.title === req.params.title);
+    
+    if (postIndex !== -1) {
+      POST[postIndex].title = req.body.title;
+      POST[postIndex].content = req.body.content;
+      res.redirect('/board')
+    } else {
+      const err = new Error('해당 제목의 글이 없습니다.');
+      err.statusCode = 404;
+      throw err;
+    }
+    
+  } else {
+    const err = new Error('요청 쿼리 이상');
+    err.statusCode = 404;
+    throw err;
+  }
+});
 
 // 글 삭제
 router.delete('/delete/:title', (req, res)=> {});
