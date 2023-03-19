@@ -25,7 +25,7 @@
                 <div class="content"><%= POST[i].content %></div>
                 <div class="foot">
                   <a href="board/modify/<%= POST[i].title %>">수정</a>
-                  <a href="">삭제</a>
+                  <a href="#" onclick="deletePost('<%= POST[i].title %>')">삭제</a>
                 </div>
               </li>
             <% }%>
@@ -38,5 +38,17 @@
       </div>
     </div>
   </div>
+  <script>
+    function deletePost(title) {
+      fetch(`/board/delete/${title}`,{
+        method: 'DELETE',
+        headers: {
+          'Content-type':'application/json'
+        }
+      }).then((res)=>{
+        location.href = '/board'
+      });
+    }
+  </script>
 </body>
 </html>

@@ -53,7 +53,7 @@ router.get('/modify/:title', (req, res) => {
 router.post('/modify/:title', (req, res)=>{
   if (req.body.title && req.body.content) {
     const postIndex = POST.findIndex((post)=>post.title === req.params.title);
-    
+
     if (postIndex !== -1) {
       POST[postIndex].title = req.body.title;
       POST[postIndex].content = req.body.content;
@@ -72,6 +72,16 @@ router.post('/modify/:title', (req, res)=>{
 });
 
 // 글 삭제
-router.delete('/delete/:title', (req, res)=> {});
+router.delete('/delete/:title', (req, res)=> {
+  const postIndex = POST.findIndex((post)=>post.title === req.params.title);
+  if (postIndex!==-1){
+    POST.splice(postIndex,1);
+    res.send('게시물 삭제 완료');
+  } else {
+    const err = new Error('해당 제목을 가진 게시물이 없습니다.');
+    err.statusCode = 404;
+    throw err;
+  }
+});
 
 module.exports = router;
