@@ -6,6 +6,7 @@ const PORT = 4000;
 
 app.use(cors());
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 const mainRouter = require('./routes');
 const userRouter = require('./routes/users');
