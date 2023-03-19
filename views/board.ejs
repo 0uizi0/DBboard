@@ -13,16 +13,16 @@
         <h1>게시판</h1>
       </div>
       <div class="board_write">
-        <span>현재 등록 글: <%= articleCnts %></span>
+        <span>현재 등록 글: <%= postCnts %></span>
         <a href="/board/write">글쓰기</a>
       </div>
       <div class="board_body">
         <ul class="board">
-          <% if (articleCnts > 0) { %>
-            <% for (let i = 0; i < articleCnts; i++) { %>
+          <% if (postCnts > 0) { %>
+            <% for (let i = 0; i < postCnts; i++) { %>
               <li>
-                <div class="title"><%= ARTICLE[i].title %></div>
-                <div class="content"><%= ARTICLE[i].content %></div>
+                <div class="title"><%= POST[i].title %></div>
+                <div class="content"><%= POST[i].content %></div>
                 <div class="foot">
                   <a href="">수정</a>
                   <a href="">삭제</a>

@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const ARTICLE = [
+const POST = [
   {
     title: 'title1',
     content: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam nulla, itaque nihil perspiciatis cum facilis deserunt aliquid architecto quaerat non quisquam velit, ad, repellendus laboriosam magnam delectus hic enim blanditiis?'
@@ -15,8 +15,8 @@ const ARTICLE = [
 
 // 글 전체 목록 보여주기
 router.get('/', (req, res) => {
-  const articleCnts = ARTICLE.length;
-  res.render('board', {ARTICLE, articleCnts});
+  const postCnts = POST.length;
+  res.render('board', {POST, postCnts});
 });
 
 // 글쓰기
@@ -28,11 +28,11 @@ router.get('/write', (req, res) => {
 router.post('/write', (req, res) => {
   console.log(req.body);
   if (req.body.title && req.body.content) {
-    const newArticle = {
+    const newPost = {
       title: req.body.title,
       content: req.body.content
     };
-    ARTICLE.push(newArticle);
+    POST.push(newPost);
 
     res.redirect('/board');
   } else {
