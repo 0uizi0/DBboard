@@ -21,7 +21,9 @@ router.get('/', (req, res) => {
 
 // 글쓰기
 // 글쓰기 모드로 이동
-router.get('/write', (req, res) => {});
+router.get('/write', (req, res) => {
+  res.render('board_write')
+});
 // 게시물 추가
 router.post('/write', (req, res) => {});
 
