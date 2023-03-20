@@ -1,4 +1,5 @@
 const express = require('express');
+const boardDB = require('../controllers/boardController');
 
 const router = express.Router();
 
@@ -15,8 +16,12 @@ const POST = [
 
 // 글 전체 목록 보여주기
 router.get('/', (req, res) => {
-  const postCnts = POST.length;
-  res.render('board', {POST, postCnts});
+  boardDB.getAllArticles((data) => {
+    console.log(data);
+    const POST = data;
+    const postCnts = POST.length;
+    res.render('board', {POST, postCnts});
+  })
 });
 
 // 글쓰기
