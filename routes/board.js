@@ -31,14 +31,17 @@ router.get('/write', (req, res) => {
 });
 // 게시물 추가
 router.post('/write', (req, res) => {
+  console.log(req.body);
   if (req.body.title && req.body.content) {
-    const newPost = {
-      title: req.body.title,
-      content: req.body.content
-    };
-    POST.push(newPost);
-
-    res.redirect('/board');
+    boardDB.writePost(req.body, (data) => {
+      console.log(data);
+      if (data.affectedRows >= 1) {
+        res.redirect('/board');
+      } else {
+        const err = new Error('글쓰기가 실패하였습니다.');
+        throw err;
+      }
+    })
   } else {
     const err = new Error('데이터 값이 들어오지 않았습니다.');
     err.statusCode = 400;
