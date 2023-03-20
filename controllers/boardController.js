@@ -19,6 +19,12 @@ const boardDB = {
       if (err) throw err;
       cb(data);
     })
+  },
+  modifyPost: (id, modifyPost, cb) => {
+    connection.query(`UPDATE board_db.board SET TITLE = '${modifyPost.title}', CONTENT = '${modifyPost.content}' WHERE ID_PK = ${id};`, (err, data) => {
+      if (err) throw err;
+      cb(data);
+    });
   }
 };
 

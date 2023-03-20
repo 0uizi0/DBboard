@@ -60,22 +60,18 @@ router.get('/modify/:id', (req, res) => {
   });
 });
 // 게시물 수정
-router.post('/modify/:title', (req, res)=>{
+router.post('/modify/:id', (req, res)=>{
   if (req.body.title && req.body.content) {
-    const postIndex = POST.findIndex((post)=>post.title === req.params.title);
-
-    if (postIndex !== -1) {
-      POST[postIndex].title = req.body.title;
-      POST[postIndex].content = req.body.content;
-      res.redirect('/board')
-    } else {
-      const err = new Error('해당 제목의 글이 없습니다.');
-      err.statusCode = 404;
-      throw err;
-    }
-    
+    boardDB.modifyPost(req.params.id, req.body, (data) => {
+      if (data.affectedRows >= 1) {
+        res.redirect('/board');
+      } else {
+        const err = new Error ('글 수정이 실패하였습니다.');
+        throw err;
+      }
+    })
   } else {
-    const err = new Error('요청 쿼리 이상');
+    const err = new Error ('글 제목 또는 내용이 없습니다.');
     err.statusCode = 404;
     throw err;
   }
