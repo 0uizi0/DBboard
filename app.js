@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const PORT = 4000;
@@ -10,6 +11,8 @@ app.use(express.static('public'));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+app.use(cookieParser());
 
 const mainRouter = require('./routes');
 const userRouter = require('./routes/users');
