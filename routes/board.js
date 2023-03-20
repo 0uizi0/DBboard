@@ -17,7 +17,6 @@ const POST = [
 // 글 전체 목록 보여주기
 router.get('/', (req, res) => {
   boardDB.getAllArticles((data) => {
-    console.log(data);
     const POST = data;
     const postCnts = POST.length;
     res.render('board', {POST, postCnts});
@@ -31,10 +30,8 @@ router.get('/write', (req, res) => {
 });
 // 게시물 추가
 router.post('/write', (req, res) => {
-  console.log(req.body);
   if (req.body.title && req.body.content) {
     boardDB.writePost(req.body, (data) => {
-      console.log(data);
       if (data.affectedRows >= 1) {
         res.redirect('/board');
       } else {
@@ -53,7 +50,6 @@ router.post('/write', (req, res) => {
 // 글 수정 모드로 이동
 router.get('/modify/:id', (req, res) => {
   boardDB.getPost(req.params.id,(data) => {
-    console.log(data);
     if (data.length > 0) {
       res.render('board_modify', {selectedPost: data[0]});
     }
