@@ -15,13 +15,11 @@ const mainRouter = require('./routes');
 const userRouter = require('./routes/users');
 const boardRouter = require('./routes/board');
 const dbUserRouter = require('./routes/dbUser');
-const dbBoardRouter = require('./routes/dbBoard');
 
 app.use('/', mainRouter);
 app.use('/users', userRouter);
 app.use('/board', boardRouter);
 app.use('/dbUser', dbUserRouter);
-app.use('/dbBoard', dbBoardRouter);
 
 app.listen(PORT, () => {
   console.log(`${PORT}번 포트에서 서버 실행 중`);

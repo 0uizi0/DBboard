@@ -15,7 +15,7 @@
       </div>
       <div class="board_write">
         <span>현재 등록 글: <%= postCnts %></span>
-        <a href="/dbBoard/write" class="btn">글쓰기</a>
+        <a href="/board/write" class="btn">글쓰기</a>
       </div>
       <div class="board_body">
         <ul class="board">
@@ -25,7 +25,7 @@
                 <div class="title"><%= POST[i].TITLE %></div>
                 <div class="content"><%= POST[i].CONTENT %></div>
                 <div class="foot">
-                  <a href="dbBoard/modify/<%= POST[i].title %>" class="btn">수정</a>
+                  <a href="/board/modify/<%= POST[i].title %>" class="btn">수정</a>
                   <a href="#" onclick="deletePost('<%= POST[i].title %>')" class="btn">삭제</a>
                 </div>
               </li>
