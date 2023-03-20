@@ -51,10 +51,13 @@ router.post('/write', (req, res) => {
 
 // 글 수정
 // 글 수정 모드로 이동
-router.get('/modify/:title', (req, res) => {
-  const postIndex = POST.findIndex((post)=>post.title === req.params.title);
-  const selectedPost = POST[postIndex];
-  res.render('board_modify', {selectedPost});
+router.get('/modify/:id', (req, res) => {
+  boardDB.getPost(req.params.id,(data) => {
+    console.log(data);
+    if (data.length > 0) {
+      res.render('board_modify', {selectedPost: data[0]});
+    }
+  });
 });
 // 게시물 수정
 router.post('/modify/:title', (req, res)=>{

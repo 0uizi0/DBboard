@@ -13,6 +13,12 @@ const boardDB = {
       if (err) throw err;
       cb(data);
     })
+  },
+  getPost: (id, cb) => {
+    connection.query(`SELECT * FROM board_db.board WHERE ID_PK= ${id}`, (err, data) => {
+      if (err) throw err;
+      cb(data);
+    })
   }
 };
 

@@ -13,14 +13,14 @@
       <div class="board_header">
         <h1>글 수정하기</h1>
       </div>
-      <form action="/board/modify/<%=selectedPost.title%>" method="POST" class="board_form">
+      <form action="/board/modify/<%=selectedPost.ID_PK%>" method="POST" class="board_form">
         <div class="form_title">
           <h3>제목</h3>
-          <input type="text" name="title" value="<%= selectedPost.title%>" required />
+          <input type="text" name="title" value="<%= selectedPost.TITLE%>" required />
         </div>
         <div class="form_content">
           <h3>내용</h3>
-          <textarea name="content" id="content" cols="30" rows="10" required><%= selectedPost.content %></textarea>
+          <textarea name="content" id="content" cols="30" rows="10" required><%= selectedPost.CONTENT %></textarea>
         </div>
         <button type="submit" class="btn">글 수정하기</button>
       </form>
