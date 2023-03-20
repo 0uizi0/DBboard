@@ -26,7 +26,7 @@
                 <div class="content"><%= POST[i].CONTENT %></div>
                 <div class="foot">
                   <a href="/board/modify/<%= POST[i].ID_PK %>" class="btn">수정</a>
-                  <a href="#" onclick="deletePost('<%= POST[i].title %>')" class="btn">삭제</a>
+                  <a href="#" onclick="deletePost('<%= POST[i].ID_PK %>')" class="btn">삭제</a>
                 </div>
               </li>
             <% }%>

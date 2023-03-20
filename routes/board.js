@@ -78,16 +78,16 @@ router.post('/modify/:id', (req, res)=>{
 });
 
 // 글 삭제
-router.delete('/delete/:title', (req, res)=> {
-  const postIndex = POST.findIndex((post)=>post.title === req.params.title);
-  if (postIndex!==-1){
-    POST.splice(postIndex,1);
-    res.send('게시물 삭제 완료');
-  } else {
-    const err = new Error('해당 제목을 가진 게시물이 없습니다.');
-    err.statusCode = 404;
-    throw err;
-  }
+router.delete('/delete/:id', (req, res)=> {
+  boardDB.deletePost(req.params.id, (data) => {
+    if (data.affectedRows >= 1) {
+      res.send('삭제가 완료되었습니다.');
+    } else {
+      const err = new Error('글 삭제가 실패하였습니다.');
+      err.statusCode = 500;
+      throw err;
+    }
+  })
 });
 
 module.exports = router;
