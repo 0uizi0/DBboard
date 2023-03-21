@@ -3,16 +3,15 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  console.log('test');
+  res.render('index', {cookie: req.cookies.cookie});
 })
 
 router.get('/cook', (req, res) => {
-  res.cookie('alert', true, {
-    expires: new Date(Date.now() + 1000 * 60),
+  res.cookie('cookie', true, {
+    expires: new Date(Date.now() + 1000 * 5),
     httpOnly: false,
   });
-  console.log(req.cookies.alert);
-  res.render('index', {alert: req.cookies.alert});
+  res.send('쿠키 굽기 성공');
 })
 
 module.exports = router;
