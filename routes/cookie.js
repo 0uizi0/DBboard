@@ -11,6 +11,7 @@ router.get('/cook', (req, res) => {
     maxAge: 1000 * 5,
     httpOnly: false,
   });
+  res.clearCookie('cookie');
   res.send('쿠키 굽기 성공');
 })
 
