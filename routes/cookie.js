@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 
 router.get('/cook', (req, res) => {
   res.cookie('cookie', true, {
-    expires: new Date(Date.now() + 1000 * 5),
+    maxAge: 1000 * 5,
     httpOnly: false,
   });
   res.send('쿠키 굽기 성공');
