@@ -32,6 +32,7 @@ const boardRouter = require('./routes/board');
 const dbUserRouter = require('./routes/dbUser');
 const cookieRouter = require('./routes/cookie');
 const registerRouter = require('./routes/register');
+const loginRouter = require('./routes/login');
 
 app.use('/', mainRouter);
 app.use('/users', userRouter);
@@ -39,6 +40,7 @@ app.use('/board', boardRouter);
 app.use('/dbUser', dbUserRouter);
 app.use('/cookie', cookieRouter);
 app.use('/register', registerRouter);
+app.use('/login', loginRouter);
 
 app.listen(PORT, () => {
   console.log(`${PORT}번 포트에서 서버 실행 중`);
