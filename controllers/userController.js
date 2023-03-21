@@ -14,6 +14,13 @@ const userDB = {
       console.log(data);
       cb(data);
     })
+  },
+  registerUser: (newUser, cb) => {
+    connection.query(`INSERT INTO board_db.user (USERID, PASSWORD) values ('${newUser.id}', '${newUser.password}');`, (err, data) => {
+      if (err) throw err;
+      console.log(data);
+      cb(data);
+    })
   }
 };
 
