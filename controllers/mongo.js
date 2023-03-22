@@ -11,12 +11,18 @@ async function main() {
   const deleteResult = await test.deleteMany({});
   if (!deleteResult.acknowledged) return '삭제 에러 발생';
 
-  const insertResult = await test.insertOne({
-    name:'pororo',
-    age: 5,
-  });
+  const insertResult = await test.insertMany([
+    {name:'pororo',age: 5},
+    {name:'loopy',age: 6},
+    {name:'crong',age: 4},
+  ]);
   if (!insertResult.acknowledged) return '삽입 에러 발생';
-  console.log(insertResult);
+  
+  const deleteOneResult = await test.deleteOne({user: 'crong'});
+  if (!deleteOneResult.acknowledged) return '삭제 에러 발생';
+
+  console.log(deleteOneResult);
+
   client.close();
 }
 
