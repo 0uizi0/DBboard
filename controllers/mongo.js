@@ -18,7 +18,7 @@ async function main() {
   ]);
   if (!insertResult.acknowledged) return '삽입 에러 발생';
   
-  const deleteOneResult = await test.deleteOne({user: 'crong'});
+  const deleteOneResult = await test.deleteOne({name: 'crong'});
   if (!deleteOneResult.acknowledged) return '삭제 에러 발생';
 
   console.log(deleteOneResult);
