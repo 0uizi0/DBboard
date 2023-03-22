@@ -34,6 +34,21 @@ client.connect((err) => {
     ], (insertManyErr, insertManyResult) => {
       if (insertManyErr) throw insertManyErr;
       console.log(insertManyResult);
+
+      // deleteOne
+      test.deleteOne({name: 'crong'}, (deleteOneErr, deleteOneResult) => {
+        if (deleteOneErr) throw deleteOneErr;
+        console.log(deleteOneResult);
+      })
+
+      // deleteMany
+      test.deleteMany(
+        { age : { $gte: 5 } },
+        (deleteManyErr, deleteManyResult) => {
+          if (deleteManyErr) throw deleteManyErr;
+          console.log(deleteManyResult);
+        }
+        )
     })
   });
 })
