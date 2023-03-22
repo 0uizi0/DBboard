@@ -30,7 +30,12 @@ router.get('/write', isLogin, (req, res) => {
 // 게시물 추가
 router.post('/write', isLogin, (req, res) => {
   if (req.body.title && req.body.content) {
-    boardDB.writePost(req.body, (data) => {
+    const newPost= {
+      id: req.session.userId,
+      title: req.body.title,
+      content: req.body.content,
+    };
+    boardDB.writePost(newPost, (data) => {
       if (data.affectedRows >= 1) {
         res.redirect('/board');
       } else {

@@ -9,7 +9,7 @@ const boardDB = {
     });
   },
   writePost: (newPost, cb) => {
-    connection.query(`INSERT INTO board_db.board (TITLE, CONTENT) VALUES ('${newPost.title}', '${newPost.content}')`, (err, data) => {
+    connection.query(`INSERT INTO board_db.board (USERID, TITLE, CONTENT) VALUES ('${newPost.id}','${newPost.title}', '${newPost.content}')`, (err, data) => {
       if (err) throw err;
       cb(data);
     })
