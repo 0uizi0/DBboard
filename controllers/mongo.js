@@ -110,7 +110,9 @@ client.connect((err) => {
       })
 
       // find
-      const findCursor = test.find({name: 'loopy'});
+      const findCursor = test.find({
+        $and: [{age: {$gte:5}}, {name: 'loopy'} ]
+      });
       console.log(findCursor);
       findCursor.toArray((toArrErr, toArrData) => {
         console.log(toArrData);
