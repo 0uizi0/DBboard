@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
         req.session.userId = req.body.id;
         // 로그인 쿠키 발행
         res.cookie('user',req.body.id, {
-          maxAge: 1000 * 30,
+          maxAge: 1000 * 10,
           httpOnly: true,
           signed: true,
         });

@@ -5,7 +5,7 @@ const router = express.Router();
 
 // 로그인 확인용 미들웨어
 function isLogin(req, res, next) {
-  if (req.session.login) {
+  if (req.session.login || req.signedCookies.user) {
     next();
   } else {
     res.status(400).send('로그인이 필요한 서비스입니다.<br/><a href="/login">로그인 페이지로 이동</a>');
