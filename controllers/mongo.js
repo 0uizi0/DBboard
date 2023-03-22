@@ -21,7 +21,13 @@ async function main() {
   const deleteOneResult = await test.deleteOne({name: 'crong'});
   if (!deleteOneResult.acknowledged) return '삭제 에러 발생';
 
-  console.log(deleteOneResult);
+  const updateOneResult = await test.updateOne(
+    {name: 'loopy'},
+    {$set: {name: '루피'}}
+  );
+
+  if (!updateOneResult.acknowledged) return '수정 에러 발생';
+  console.log(updateOneResult);
 
   client.close();
 }
