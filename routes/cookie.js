@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 
 router.get('/cook', (req, res) => {
   res.cookie('cookie', true, {
-    maxAge: 1000 * 5,
+    // maxAge: 1000 * 5,
     httpOnly: false,
   });
   res.clearCookie('cookie');
