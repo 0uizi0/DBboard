@@ -6,6 +6,24 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 client.connect((err) => {
   const test = client.db('mongo').collection('test');
-  console.log(test);
-  client.close();
+  
+  test.deleteMany({}, (deleteErr) => {
+    if (deleteErr) throw deleteErr;
+
+    // insertOne
+    test.insertOne({
+      name: 'kej',
+      nickname: '0l0jjo',
+    }, (insertOneErr, insertOneResult) => {
+      if(insertOneErr) throw insertOneErr;
+      console.log(insertOneResult); // 데이터 성공 여부 확인
+
+      if(insertOneResult.acknowledged) {
+        const findData = test.find({});
+        findData.toArray((err, data) => {
+          console.log(data); // 데이터 확인
+        });
+      }
+    })
+  });
 })
