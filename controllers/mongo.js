@@ -54,6 +54,43 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 // })
 
 // 데이터 수정
+// client.connect((err) => {
+//   const test = client.db('mongo').collection('test');
+  
+//   test.deleteMany({}, (deleteErr) => {
+//     if (deleteErr) throw deleteErr;
+
+//     test.insertMany([
+//       {name: 'pororo', age: 5},
+//       {name: 'loopy', age: 6},
+//       {name: 'crong', age: 4}
+//     ], (insertManyErr, insertManyResult) => {
+//       if (insertManyErr) throw insertManyErr;
+      
+//       // updateOne
+//       test.updateOne(
+//         {name: 'loopy'},
+//         {$set: {name: '루피'}},
+//         (updateOneErr, updateOneResult) => {
+//           if (updateOneErr) throw updateOneErr;
+//           console.log(updateOneResult);
+//         }
+//       )
+
+//       // updateMany
+//       test.updateMany(
+//         {age: {$gte: 5}},
+//         {$set: {name: '5살 이상인 친구들'}},
+//         (updateManyErr, updateManyResult) => {
+//           if (updateManyErr) throw updateManyErr;
+//           console.log(updateManyResult);
+//         }
+//       )
+//     })
+//   });
+// })
+
+// 데이터 검색
 client.connect((err) => {
   const test = client.db('mongo').collection('test');
   
@@ -67,25 +104,17 @@ client.connect((err) => {
     ], (insertManyErr, insertManyResult) => {
       if (insertManyErr) throw insertManyErr;
       
-      // updateOne
-      test.updateOne(
-        {name: 'loopy'},
-        {$set: {name: '루피'}},
-        (updateOneErr, updateOneResult) => {
-          if (updateOneErr) throw updateOneErr;
-          console.log(updateOneResult);
-        }
-      )
+      // findOne
+      test.findOne({name: 'loopy'}, (findOneErr, findOneData) => {
+        console.log(findOneData);
+      })
 
-      // updateMany
-      test.updateMany(
-        {age: {$gte: 5}},
-        {$set: {name: '5살 이상인 친구들'}},
-        (updateManyErr, updateManyResult) => {
-          if (updateManyErr) throw updateManyErr;
-          console.log(updateManyResult);
-        }
-      )
+      // find
+      const findCursor = test.find({name: 'loopy'});
+      console.log(findCursor);
+      findCursor.toArray((toArrErr, toArrData) => {
+        console.log(toArrData);
+      })
     })
   });
 })
