@@ -5,7 +5,7 @@ const session = require('express-session');
 require('dotenv').config();
 
 const app = express();
-const PORT = 4000;
+const { PORT } = process.env;
 
 app.use(cors());
 app.set('view engine', 'ejs');
