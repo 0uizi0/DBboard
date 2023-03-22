@@ -25,5 +25,15 @@ client.connect((err) => {
         });
       }
     })
+
+    // insertMany
+    test.insertMany([
+      {name: 'pororo', age: 5},
+      {name: 'loopy', age: 6},
+      {name: 'crong', age: 4}
+    ], (insertManyErr, insertManyResult) => {
+      if (insertManyErr) throw insertManyErr;
+      console.log(insertManyResult);
+    })
   });
 })
