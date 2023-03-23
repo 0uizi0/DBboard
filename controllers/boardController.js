@@ -61,9 +61,15 @@ const modifyPost = async (req, res) => {
     const client = await mongoClient.connect();
     const board = client.db('mongo').collection('board');
 
-    const selectedPost = await board.updateOne(
+    const modify = {
+      TITLE: req.body.title,
+      CONTENT: req.body.content,
+    };
+    if (req.file) modify.IMAGE = req.file.filename;
+
+    await board.updateOne(
       { _id: ObjectId(req.params.id) },
-      { $set: { TITLE: req.body.title, CONTENT: req.body.content } }
+      { $set: modify }
     );
 
     res.redirect('/board');

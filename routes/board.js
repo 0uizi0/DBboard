@@ -55,7 +55,7 @@ router.post('/write', isLogin, upload.single('img'), writePost);
 // 글 수정 모드로 이동
 router.get('/modify/:id', isLogin, getPost);
 // 게시물 수정
-router.post('/modify/:id', isLogin, modifyPost);
+router.post('/modify/:id', isLogin, upload.single('img'), modifyPost);
 
 // 글 삭제
 router.delete('/delete/:id', isLogin, deletePost);
