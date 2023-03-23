@@ -4,6 +4,7 @@ const {
   writePost,
   getPost,
   modifyPost,
+  deletePost,
 } = require('../controllers/boardController');
 
 const router = express.Router();
@@ -35,16 +36,6 @@ router.get('/modify/:id', isLogin, getPost);
 router.post('/modify/:id', isLogin, modifyPost);
 
 // 글 삭제
-router.delete('/delete/:id', isLogin, (req, res)=> {
-  boardDB.deletePost(req.params.id, (data) => {
-    if (data.affectedRows >= 1) {
-      res.send('삭제가 완료되었습니다.');
-    } else {
-      const err = new Error('글 삭제가 실패하였습니다.');
-      err.statusCode = 500;
-      throw err;
-    }
-  })
-});
+router.delete('/delete/:id', isLogin, deletePost);
 
 module.exports = router;

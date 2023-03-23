@@ -72,7 +72,20 @@ const modifyPost = async (req, res) => {
   }
 };
 
-const boardDB = {
+const deletePost = async (req, res) => {
+  try {
+    const client = await mongoClient.connect();
+    const board = client.db('mongo').collection('board');
+
+    await board.deleteOne({_id: ObjectId(req.params.id)});
+    res.status(200).json('삭제 성공');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message, UNEXPECTED_MSG);
+  }
+}
+
+// const boardDB = {
   // getAllArticles: (cb) => {
   //   connection.query('SELECT * FROM board_db.board;', (err, data) => {
   //     if (err) throw err;
@@ -98,17 +111,18 @@ const boardDB = {
   //     cb(data);
   //   });
   // },
-  deletePost: (id, cb) => {
-    connection.query(`DELETE FROM board_db.board WHERE ID_PK  = ${id};`, (err, data) => {
-      if (err) throw err;
-      cb(data);
-    })
-  }
-};
+  // deletePost: (id, cb) => {
+  //   connection.query(`DELETE FROM board_db.board WHERE ID_PK  = ${id};`, (err, data) => {
+  //     if (err) throw err;
+  //     cb(data);
+  //   })
+  // }
+// };
 
 module.exports = {
   getAllPosts,
   writePost,
   getPost,
   modifyPost,
+  deletePost,
 }
