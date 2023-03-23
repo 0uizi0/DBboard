@@ -24,10 +24,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    const client  = await mongoClient.connect();
-    const user = client.db('mongo').collection('user');
-    
-    const findUser = await user.findOne({id: req.body.id});
+    const findUser = await User.findOne({id: req.body.id});
     if (!findUser) return res.status(400).send(LOGIN_NOT_REGISTER_ID);
 
     if(findUser.password !== req.body.password) return res.status(400).send(LOGIN_WRONG_PASSWORD_MSG);
