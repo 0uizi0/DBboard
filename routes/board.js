@@ -1,5 +1,8 @@
 const express = require('express');
-const { getAllPosts } = require('../controllers/boardController');
+const { 
+  getAllPosts,
+  writePost 
+} = require('../controllers/boardController');
 
 const router = express.Router();
 
@@ -21,27 +24,7 @@ router.get('/write', isLogin, (req, res) => {
   res.render('board_write')
 });
 // 게시물 추가
-router.post('/write', isLogin, (req, res) => {
-  if (req.body.title && req.body.content) {
-    const newPost= {
-      id: req.session.userId,
-      title: req.body.title,
-      content: req.body.content,
-    };
-    boardDB.writePost(newPost, (data) => {
-      if (data.affectedRows >= 1) {
-        res.redirect('/board');
-      } else {
-        const err = new Error('글쓰기가 실패하였습니다.');
-        throw err;
-      }
-    })
-  } else {
-    const err = new Error('데이터 값이 들어오지 않았습니다.');
-    err.statusCode = 400;
-    throw err;
-  }
-});
+router.post('/write', isLogin, writePost);
 
 // 글 수정
 // 글 수정 모드로 이동

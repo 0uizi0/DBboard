@@ -20,6 +20,24 @@ const getAllPosts = async (req, res) => {
   }
 };
 
+const writePost = async (req, res) => {
+  try {
+    const client = await mongoClient.connect();
+    const board = client.db('mongo').collection('board');
+
+    const newPost = {
+      USERID: req.session.userId,
+      TITLE: req.body.title,
+      CONTENT: req.body.content,
+    };
+    await board.insertOne(newPost);
+    res.redirect('/board');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message, UNEXPECTED_MSG);
+  }
+};
+
 const boardDB = {
   // getAllArticles: (cb) => {
   //   connection.query('SELECT * FROM board_db.board;', (err, data) => {
@@ -28,12 +46,12 @@ const boardDB = {
   //     cb(data);
   //   });
   // },
-  writePost: (newPost, cb) => {
-    connection.query(`INSERT INTO board_db.board (USERID, TITLE, CONTENT) VALUES ('${newPost.id}','${newPost.title}', '${newPost.content}')`, (err, data) => {
-      if (err) throw err;
-      cb(data);
-    })
-  },
+  // writePost: (newPost, cb) => {
+  //   connection.query(`INSERT INTO board_db.board (USERID, TITLE, CONTENT) VALUES ('${newPost.id}','${newPost.title}', '${newPost.content}')`, (err, data) => {
+  //     if (err) throw err;
+  //     cb(data);
+  //   })
+  // },
   getPost: (id, cb) => {
     connection.query(`SELECT * FROM board_db.board WHERE ID_PK= ${id}`, (err, data) => {
       if (err) throw err;
@@ -56,4 +74,5 @@ const boardDB = {
 
 module.exports = {
   getAllPosts,
+  writePost,
 }
