@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const mongoClient = require('./mongoConnect');
 
 const UNEXPECTED_MSG = '<br><a href="/">메인 페이지로 이동</a>'
@@ -38,6 +40,21 @@ const writePost = async (req, res) => {
   }
 };
 
+const getPost = async (req, res) => {
+  try {
+    const client = await mongoClient.connect();
+    const board = client.db('mongo').collection('board');
+
+    const selectedPost = await board.findOne({
+      _id: ObjectId(req.params.id),
+    });
+    res.render('board_modify', {selectedPost});
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message, UNEXPECTED_MSG);
+  }
+}
+
 const boardDB = {
   // getAllArticles: (cb) => {
   //   connection.query('SELECT * FROM board_db.board;', (err, data) => {
@@ -52,12 +69,12 @@ const boardDB = {
   //     cb(data);
   //   })
   // },
-  getPost: (id, cb) => {
-    connection.query(`SELECT * FROM board_db.board WHERE ID_PK= ${id}`, (err, data) => {
-      if (err) throw err;
-      cb(data);
-    })
-  },
+  // getPost: (id, cb) => {
+  //   connection.query(`SELECT * FROM board_db.board WHERE ID_PK= ${id}`, (err, data) => {
+  //     if (err) throw err;
+  //     cb(data);
+  //   })
+  // },
   modifyPost: (id, modifyPost, cb) => {
     connection.query(`UPDATE board_db.board SET TITLE = '${modifyPost.title}', CONTENT = '${modifyPost.content}' WHERE ID_PK = ${id};`, (err, data) => {
       if (err) throw err;
@@ -75,4 +92,5 @@ const boardDB = {
 module.exports = {
   getAllPosts,
   writePost,
+  getPost,
 }

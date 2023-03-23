@@ -28,8 +28,8 @@
                 <div class="content"><%= POST[i].CONTENT %></div>
                 <div class="foot">
                   <% if (POST[i].USERID === userId) { %>
-                  <a href="/board/modify/<%= POST[i].ID_PK %>" class="btn">수정</a>
-                  <a href="#" onclick="deletePost('<%= POST[i].ID_PK %>')" class="btn">삭제</a>
+                  <a href="/board/modify/<%= POST[i]._id %>" class="btn">수정</a>
+                  <a href="#" onclick="deletePost('<%= POST[i]._id %>')" class="btn">삭제</a>
                   <% } %>
                 </div>
               </li>

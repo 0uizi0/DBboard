@@ -1,7 +1,8 @@
 const express = require('express');
 const { 
   getAllPosts,
-  writePost 
+  writePost,
+  getPost,
 } = require('../controllers/boardController');
 
 const router = express.Router();
@@ -28,13 +29,7 @@ router.post('/write', isLogin, writePost);
 
 // 글 수정
 // 글 수정 모드로 이동
-router.get('/modify/:id', isLogin, (req, res) => {
-  boardDB.getPost(req.params.id,(data) => {
-    if (data.length > 0) {
-      res.render('board_modify', {selectedPost: data[0]});
-    }
-  });
-});
+router.get('/modify/:id', isLogin, getPost);
 // 게시물 수정
 router.post('/modify/:id', isLogin, (req, res)=>{
   if (req.body.title && req.body.content) {
