@@ -55,6 +55,23 @@ const getPost = async (req, res) => {
   }
 }
 
+const modifyPost = async (req, res) => {
+  try {
+    const client = await mongoClient.connect();
+    const board = client.db('mongo').collection('board');
+
+    const selectedPost = await board.updateOne(
+      { _id: ObjectId(req.params.id) },
+      { $set: { TITLE: req.body.title, CONTENT: req.body.content } }
+    );
+
+    res.redirect('/board');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message, UNEXPECTED_MSG);
+  }
+};
+
 const boardDB = {
   // getAllArticles: (cb) => {
   //   connection.query('SELECT * FROM board_db.board;', (err, data) => {
@@ -75,12 +92,12 @@ const boardDB = {
   //     cb(data);
   //   })
   // },
-  modifyPost: (id, modifyPost, cb) => {
-    connection.query(`UPDATE board_db.board SET TITLE = '${modifyPost.title}', CONTENT = '${modifyPost.content}' WHERE ID_PK = ${id};`, (err, data) => {
-      if (err) throw err;
-      cb(data);
-    });
-  },
+  // modifyPost: (id, modifyPost, cb) => {
+  //   connection.query(`UPDATE board_db.board SET TITLE = '${modifyPost.title}', CONTENT = '${modifyPost.content}' WHERE ID_PK = ${id};`, (err, data) => {
+  //     if (err) throw err;
+  //     cb(data);
+  //   });
+  // },
   deletePost: (id, cb) => {
     connection.query(`DELETE FROM board_db.board WHERE ID_PK  = ${id};`, (err, data) => {
       if (err) throw err;
@@ -93,4 +110,5 @@ module.exports = {
   getAllPosts,
   writePost,
   getPost,
+  modifyPost,
 }

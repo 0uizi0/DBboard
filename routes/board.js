@@ -3,6 +3,7 @@ const {
   getAllPosts,
   writePost,
   getPost,
+  modifyPost,
 } = require('../controllers/boardController');
 
 const router = express.Router();
@@ -31,22 +32,7 @@ router.post('/write', isLogin, writePost);
 // 글 수정 모드로 이동
 router.get('/modify/:id', isLogin, getPost);
 // 게시물 수정
-router.post('/modify/:id', isLogin, (req, res)=>{
-  if (req.body.title && req.body.content) {
-    boardDB.modifyPost(req.params.id, req.body, (data) => {
-      if (data.affectedRows >= 1) {
-        res.redirect('/board');
-      } else {
-        const err = new Error ('글 수정이 실패하였습니다.');
-        throw err;
-      }
-    })
-  } else {
-    const err = new Error ('글 제목 또는 내용이 없습니다.');
-    err.statusCode = 404;
-    throw err;
-  }
-});
+router.post('/modify/:id', isLogin, modifyPost);
 
 // 글 삭제
 router.delete('/delete/:id', isLogin, (req, res)=> {
