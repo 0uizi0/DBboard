@@ -1,5 +1,5 @@
 const express = require('express');
-const boardDB = require('../controllers/boardController');
+const { getAllPosts } = require('../controllers/boardController');
 
 const router = express.Router();
 
@@ -13,14 +13,7 @@ function isLogin(req, res, next) {
 }
 
 // 글 전체 목록 보여주기
-router.get('/', isLogin, (req, res) => {
-  boardDB.getAllArticles((data) => {
-    const POST = data;
-    const postCnts = POST.length;
-    const { userId } = req.session;
-    res.render('board', {POST, postCnts, userId});
-  })
-});
+router.get('/', isLogin, getAllPosts);
 
 // 글쓰기
 // 글쓰기 모드로 이동

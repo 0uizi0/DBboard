@@ -1,13 +1,33 @@
-const connection = require('./dbConnect');
+const mongoClient = require('./mongoConnect');
+
+const UNEXPECTED_MSG = '<br><a href="/">메인 페이지로 이동</a>'
+
+const getAllPosts = async (req, res) => {
+  try {
+    const client = await mongoClient.connect();
+    const board = client.db('mongo').collection('board');
+    
+    const allPostCursor = board.find({});
+    const POST = await allPostCursor.toArray();
+    res.render('board', {
+      POST,
+      postCnts: POST.length,
+      userId: req.session.userId,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message, UNEXPECTED_MSG);
+  }
+};
 
 const boardDB = {
-  getAllArticles: (cb) => {
-    connection.query('SELECT * FROM board_db.board;', (err, data) => {
-      if (err) throw err;
-      console.log(data);
-      cb(data);
-    });
-  },
+  // getAllArticles: (cb) => {
+  //   connection.query('SELECT * FROM board_db.board;', (err, data) => {
+  //     if (err) throw err;
+  //     console.log(data);
+  //     cb(data);
+  //   });
+  // },
   writePost: (newPost, cb) => {
     connection.query(`INSERT INTO board_db.board (USERID, TITLE, CONTENT) VALUES ('${newPost.id}','${newPost.title}', '${newPost.content}')`, (err, data) => {
       if (err) throw err;
@@ -34,4 +54,6 @@ const boardDB = {
   }
 };
 
-module.exports = boardDB;
+module.exports = {
+  getAllPosts,
+}
