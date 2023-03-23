@@ -1,4 +1,4 @@
-require('./mongoConnect');
+require('./mongooseConnect');
 const User = require('../models/user');
 
 const REGISTER_DUPLICATED_MSG = '동일한 ID를 가진 회원이 존재합니다. <br/><a href="/register">회원가입으로 이동</a>';
