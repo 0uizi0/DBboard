@@ -1,4 +1,5 @@
-const mongoClient = require('./mongoConnect');
+require('./mongoConnect');
+const User = require('../models/user');
 
 const REGISTER_DUPLICATED_MSG = '동일한 ID를 가진 회원이 존재합니다. <br/><a href="/register">회원가입으로 이동</a>';
 const REGISTER_SUCCESS_MSG = '회원 가입에 성공하였습니다.<br/><a href="/login">로그인 페이지로 이동</a>';
@@ -10,13 +11,10 @@ const LOGIN_WRONG_PASSWORD_MSG = '비밀번호가 다릅니다.<br/><a href="/lo
 
 const registerUser = async (req, res) => {
   try {
-    const client  = await mongoClient.connect();
-    const user = client.db('mongo').collection('user');
-
-    const duplicatedUser = await user.findOne({id: req.body.id});
+    const duplicatedUser = await User.findOne({id: req.body.id});
     if (duplicatedUser) return res.status(400).send(REGISTER_DUPLICATED_MSG);
 
-    await user.insertOne(req.body);
+    await User.create(req.body);
     res.status(200).send(REGISTER_SUCCESS_MSG);
   } catch (err) {
     console.error(err);
