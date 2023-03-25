@@ -26,9 +26,12 @@
                 <div class="author">작성자: <%= POST[i].USERID %></div>
                 <div class="title"><%= POST[i].TITLE %></div>
                 <div class="content">
-                  <% if (POST[i].IMAGE !== null && POST[i].IMAGE !== undefined) { %>
-                    <img src="/uploads/<%= POST[i].IMAGE %>" width="500" />
-                  <% } %>
+                  <div class="content__p"><%= POST[i].CONTENT %></div>
+                  <div class="content__img">
+                    <% if (POST[i].IMAGE !== null && POST[i].IMAGE !== undefined) { %>
+                      <img src="/uploads/<%= POST[i].IMAGE %>" width="500" />
+                    <% } %>
+                  </div>
                 </div>
                 <div class="foot">
                   <% if (POST[i].USERID === userId) { %>
